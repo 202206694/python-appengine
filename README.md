@@ -10,25 +10,63 @@
 ## License
 This project is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.
 
-# Conversor de Moneda
+# Currency Converter
 
-Esta es una sencilla aplicación en Python con Flask que convierte una cantidad de dinero en euros a dólares mediante una interfaz web.
+This is a simple Python Flask application that converts an amount from euros to dollars using a web interface.
 
-## Uso
-Ejecuta el servidor con:
+## Usage
+Run the server with:
 
 ```sh
-python currency_converter.py
+python main.py
 ```
 
-Luego, abre tu navegador en `http://127.0.0.1:5000/` y usa la interfaz para realizar conversiones.
+Then open your browser at `http://127.0.0.1:5000/` and use the interface to perform conversions.
 
-## Instalación
-Para ejecutar la aplicación, instala las dependencias con:
+## Installation
+To run the app, install dependencies with:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-## Licencia
-Este proyecto se distribuye bajo la licencia MIT.
+## Deployment to Google App Engine
+1. Install Google Cloud SDK and authenticate:
+
+```sh
+gcloud init
+```
+
+2. If not present, create `app.yaml` with contents similar to:
+
+```yaml
+runtime: python39
+entrypoint: gunicorn -b :$PORT main:app
+
+env_variables:
+  PORT: 8080
+```
+
+3. Make sure `requirements.txt` includes Flask and gunicorn:
+
+```sh
+flask
+gunicorn
+```
+
+4. Test locally:
+
+```sh
+gcloud app browse --local-host=127.0.0.1:8080
+```
+
+5. Deploy to App Engine:
+
+```sh
+gcloud app deploy
+```
+
+6. Open the application at the App Engine URL printed by the deploy command.
+
+## License
+This project is distributed under the MIT License.
